@@ -8,16 +8,18 @@ def fRow(file):
             tmp = row[1]
             firstRow.append(tmp)
 
-def sortN(file):
+def sortN(Elements):
     global sortNames
     tmp = 1
     print(tmp)
-    for names in file:
+    for names in Elements:
         if tmp == 0:
-            t = names[0]
-            sortNames.append(t)
+            if not(names[0] in sortNames):
+                sortNames.append(names[0])   
         else:
             tmp = 0    
+    sortNames.sort()   
+
 
 # Перший радок 
 firstRow = []
@@ -27,14 +29,13 @@ sortNames = []
 with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:    
     # Создаем объект reader, указываем символ-разделитель ","
     file_reader = csv.reader(r_file, delimiter = ",")
-    tmp = file_reader
-    fRow(tmp)
+    fRow(file_reader)
     sortN(file_reader)
     
     
     # Зчитування даних з CSV файла
-    # for row in file_reader:
-        # print(f'{row[0]} {row[1]} {row[2]}')   
+    for row in file_reader:
+        print(f'{row[0]} {row[1]} {row[2]}')   
     # addTheDate(file_reader)    
 print(firstRow)
-print(sortNames)    
+# print(sortNames)    
