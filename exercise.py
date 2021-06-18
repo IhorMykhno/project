@@ -1,4 +1,7 @@
 import csv
+import os
+from inspect import getsourcefile
+from os.path import abspath, dirname
 
 def fRow(file):
     global firstRow
@@ -90,6 +93,12 @@ def newStuffList():
                 # NewCSVdoc[tmp].append(allStuff[i][1])
         tmp += 1            
 
+def srchCatalog():
+    path = abspath(getsourcefile(lambda:0))
+    path = dirname(path)  
+    path = path + "\\acme_worksheet.csv"
+    return path
+
 # Перший радок 
 firstRow = []
 
@@ -102,8 +111,11 @@ allStuff = []
 # Список з даними які будуть виводитись в новий CSV
 NewCSVdoc = []
 
+linkOfCatalog = srchCatalog()
+
 # Читання даних з CSV документа
-with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:    
+with open(linkOfCatalog, encoding='utf-8') as r_file:   
+# with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:    
     # Создаем объект reader, указываем символ-разделитель ","
     file_reader = csv.reader(r_file, delimiter = ",")
     fRow(file_reader)
@@ -111,11 +123,14 @@ with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:
 newStuffList()
 firstRow = changeMonth(firstRow)
 
-print(firstRow)
-print(NewCSVdoc)
+# print(firstRow)
+# print(NewCSVdoc)
 
 # Виведення 
 with open("C:/project/project/new_acme_worksheet.csv", 'w', newline="") as w_file:    
      writer = csv.writer(w_file)
      writer.writerows([firstRow])
      writer.writerows(NewCSVdoc)
+
+
+# print(path)
