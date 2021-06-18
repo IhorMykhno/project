@@ -41,6 +41,7 @@ def changeMonth(date):
         month = month.split(sep = ' ', maxsplit = 2)
         # Генерування дати поданої в шаблоні
         newMonth = f'{month[2]}-{searchMonth(month[0])}-{month[1]}'
+        # newMonth = month[2] + searchMonth(month[0]) + month[1]
         newDate.append(newMonth)
     # print(newDate)
     return newDate   
@@ -108,8 +109,13 @@ with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:
     fRow(file_reader)
 
 newStuffList()
-NewRow = changeMonth(firstRow)
+firstRow = changeMonth(firstRow)
 
-print(NewRow)
+print(firstRow)
 print(NewCSVdoc)
-# print(allStuff)
+
+# Виведення 
+with open("C:/project/project/new_acme_worksheet.csv", 'w', newline="") as w_file:    
+     writer = csv.writer(w_file)
+     writer.writerows([firstRow])
+     writer.writerows(NewCSVdoc)
