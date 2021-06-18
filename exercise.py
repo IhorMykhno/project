@@ -2,40 +2,40 @@ import csv
 
 def fRow(file):
     global firstRow
-    tmp = ''
-    for row in file:
-        if tmp != row[1]:
-            tmp = row[1]
-            firstRow.append(tmp)
-
-def sortN(Elements):
     global sortNames
-    tmp = 1
-    print(tmp)
-    for names in Elements:
-        if tmp == 0:
-            if not(names[0] in sortNames):
-                sortNames.append(names[0])   
+    tmp = ''
+    firstElem = 1
+    for row in file:
+        if firstElem == 0:
+            # Заповнення першого ярдка для виведення 
+            if tmp != row[1]:
+                tmp = row[1]
+                changeMonth(tmp)
+                firstRow.append(tmp)
+            # Розташування співробітників по алфавіту  
+            
+            if not(row[0] in sortNames):
+                sortNames.append(row[0])   
         else:
-            tmp = 0    
+            firstElem = 0        
+
     sortNames.sort()   
 
+def changeMonth(date):
+    month = date.split(sep = ' ', maxsplit = 1)
+    print(month[0])
 
 # Перший радок 
 firstRow = []
+
 # Список з відсортованими   
 sortNames = []
+
 # Читання даних з CSV документа
 with open("C:/project/project/acme_worksheet.csv", encoding='utf-8') as r_file:    
     # Создаем объект reader, указываем символ-разделитель ","
     file_reader = csv.reader(r_file, delimiter = ",")
     fRow(file_reader)
-    sortN(file_reader)
-    
-    
-    # Зчитування даних з CSV файла
-    for row in file_reader:
-        print(f'{row[0]} {row[1]} {row[2]}')   
-    # addTheDate(file_reader)    
-print(firstRow)
+
+# print(firstRow)
 # print(sortNames)    
